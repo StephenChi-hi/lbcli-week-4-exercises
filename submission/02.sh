@@ -8,7 +8,7 @@ transaction="01000000000101c8b0928edebbec5e698d5f86d0474595d9f6a5b2e4e3772cd9d10
 txid=$(bitcoin-cli -regtest decoderawtransaction "$transaction" | jq -r '.txid')
 
 
-# we know that bitcoin block time takes 10 minutes per block
+#  knowing that Average bitcoin block time takes 10 minutes per block
 minutes_per_block=10              
 minutes_per_hour=60
 hours_per_day=24
@@ -28,10 +28,9 @@ locktime=$((current_block + blocks_in_2weeks))
 
 
 bitcoin-cli -regtest createrawtransaction \
-    "[{\"txid\":\"$txid\",\"vout\":0}]" \
+    "[{\"txid\":\"$txid\",\"vout\":0},{\"txid\":\"$txid\",\"vout\":1}]" \
     "{\"2MvLcssW49n9atmksjwg2ZCMsEMsoj3pzUP\":0.2}" \
     $locktime
-
 
 
 
